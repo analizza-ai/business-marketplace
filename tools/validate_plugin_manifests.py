@@ -17,9 +17,13 @@ CAMPOS_INTERFACE_OBRIGATORIOS = (
 def validar_manifestos(claude: dict, codex: dict, plugin_dir: Path) -> list[str]:
     erros = []
 
-    if claude.get("name") != codex.get("name"):
+    if codex.get("name") is None:
+        erros.append("codex: name ausente")
+    elif claude.get("name") != codex.get("name"):
         erros.append("name diverge entre os manifestos")
-    if claude.get("version") != codex.get("version"):
+    if codex.get("version") is None:
+        erros.append("codex: version ausente")
+    elif claude.get("version") != codex.get("version"):
         erros.append("version diverge entre os manifestos")
     if codex.get("skills") != "./skills/":
         erros.append("skills deve ser './skills/'")
@@ -41,6 +45,9 @@ def carregar_manifesto(caminho: Path) -> Optional[dict]:
         return json.loads(caminho.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         print(f"JSON inválido: {caminho}")
+        return None
+    except OSError:
+        print(f"manifesto ausente ou inválido: {caminho}")
         return None
 
 

@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from tools.validate_plugin_manifests import validar_manifestos
+from tools.validate_plugin_manifests import carregar_manifesto, validar_manifestos
 
 
 def manifestos_validos():
@@ -60,12 +60,40 @@ def test_interface_incompleta_e_reportada(tmp_path: Path):
     )
 
 
+def test_name_ausente_no_codex_e_reportado(tmp_path: Path):
+    (tmp_path / "skills").mkdir()
+    claude, codex = manifestos_validos()
+    del codex["name"]
+    assert "codex: name ausente" in "\n".join(validar_manifestos(claude, codex, tmp_path))
+
+
+def test_version_ausente_no_codex_e_reportada(tmp_path: Path):
+    (tmp_path / "skills").mkdir()
+    claude, codex = manifestos_validos()
+    del codex["version"]
+    assert "codex: version ausente" in "\n".join(
+        validar_manifestos(claude, codex, tmp_path)
+    )
+
+
+def test_manifesto_ausente_e_reportado(tmp_path: Path, capsys):
+    caminho = tmp_path / "plugin.json"
+    resultado = carregar_manifesto(caminho)
+    assert resultado is None
+    assert f"manifesto ausente ou inválido: {caminho}" in capsys.readouterr().out
+
+
 def test_manifestos_reais_respeitam_o_contrato():
     raiz = Path(__file__).resolve().parents[2]
     plugin_dir = raiz / "plugins/analizza-leiloes"
     claude = json.loads((plugin_dir / ".claude-plugin/plugin.json").read_text())
     codex = json.loads((plugin_dir / ".codex-plugin/plugin.json").read_text())
     assert validar_manifestos(claude, codex, plugin_dir) == []
+
+    skills_dir = plugin_dir / "skills"
+    assert skills_dir.is_dir()
+    assert not skills_dir.is_symlink()
+    assert len(list(plugin_dir.rglob("SKILL.md"))) == 1
 
 
 def test_readme_documenta_claude_e_codex_sem_comando_inventado():

@@ -1,6 +1,6 @@
 # business-marketplace
 
-Marketplace de plugins de negócio do Claude Code da Analizza.
+Marketplace de plugins de negócio da Analizza.
 
 | Plugin | Descrição |
 | --- | --- |
@@ -51,7 +51,7 @@ plugins/analizza-leiloes/
 ├── .claude-plugin/plugin.json      # manifesto do plugin (Claude Code)
 ├── .codex-plugin/plugin.json       # manifesto do plugin (Codex)
 └── skills/                         # uma pasta por skill, fonte única para os dois harnesses
-tools/                              # validador do catálogo
+tools/                              # validador do catálogo e dos manifestos multi-harness
 docs/superpowers/specs/             # decisões de design
 docs/superpowers/plans/             # planos de implementação
 ```
