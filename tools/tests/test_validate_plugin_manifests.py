@@ -66,3 +66,12 @@ def test_manifestos_reais_respeitam_o_contrato():
     claude = json.loads((plugin_dir / ".claude-plugin/plugin.json").read_text())
     codex = json.loads((plugin_dir / ".codex-plugin/plugin.json").read_text())
     assert validar_manifestos(claude, codex, plugin_dir) == []
+
+
+def test_readme_documenta_claude_e_codex_sem_comando_inventado():
+    raiz = Path(__file__).resolve().parents[2]
+    readme = (raiz / "README.md").read_text(encoding="utf-8")
+    assert "### Claude Code" in readme
+    assert "### Codex" in readme
+    assert "Plugins" in readme
+    assert "codex plugin install" not in readme
