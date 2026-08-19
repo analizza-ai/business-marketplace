@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "business-marketplace",
+  "description": "Marketplace de plugins de negócio da Analizza",
+  "owner": {
+    "name": "Diego Lirio",
+    "email": "diegolirio.dl@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "analizza-leiloes",
+      "description": "Skills da Analizza para análise de leilão de imóveis. Inclui analizza, que recebe edital, matrícula, anúncio ou print de um lote e devolve um mapa de riscos com o trecho exato que originou cada apontamento, a aula do curso que explica aquele risco e um veredito de triagem.",
+      "author": {
+        "name": "Diego Lirio",
+        "email": "diegolirio.dl@gmail.com"
+      },
+      "source": "./plugins/analizza-leiloes",
+      "category": "business"
+    }
+  ]
+}
