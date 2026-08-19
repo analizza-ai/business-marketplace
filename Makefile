@@ -34,8 +34,8 @@ update: ## Atualiza o marketplace e depois o plugin
 ##@ Release
 
 .PHONY: validate
-validate: ## Valida os manifestos do marketplace e do plugin
-	claude plugin validate . && claude plugin validate $(PLUGIN_DIR)
+validate: ## Valida os manifestos do marketplace, Claude e Codex
+	claude plugin validate . && claude plugin validate $(PLUGIN_DIR) && python3 tools/validate_plugin_manifests.py
 
 .PHONY: tag
 tag: ## Cria a tag {plugin}--v{version} validando os manifestos
