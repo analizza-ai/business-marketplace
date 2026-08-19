@@ -32,7 +32,7 @@ matrícula por um advogado, e a saída diz isso explicitamente.
 
 ### Base de conhecimento pré-compilada
 
-Os 63 transcripts somam cerca de 1,5 MB. Nenhuma análise consegue lê-los
+As 62 transcrições somam cerca de 1,5 MB. Nenhuma análise consegue lê-los
 por inteiro. Três abordagens foram consideradas:
 
 - **Busca sob demanda** nos transcripts a partir do vocabulário do
@@ -78,8 +78,12 @@ business-marketplace/
 ├── .gitignore
 ├── Makefile
 ├── README.md
-├── docs/superpowers/specs/
-│   └── 2026-08-17-analizza-leilao-skill-design.md
+├── docs/superpowers/
+│   ├── specs/2026-08-17-analizza-leilao-skill-design.md
+│   └── plans/2026-08-17-analizza-leilao-skill.md
+├── tools/                                 # validador do catálogo
+│   ├── validate_knowledge.py
+│   └── tests/
 └── plugins/analizza-leiloes/
     ├── .claude-plugin/plugin.json          # v0.1.0
     └── skills/analizza/
@@ -87,7 +91,7 @@ business-marketplace/
         ├── knowledge/
         │   ├── riscos.md
         │   └── indice-aulas.md
-        └── transcripts/                    # 63 arquivos .vtt
+        └── transcripts/                    # 62 .vtt + Notas - Modulo 3.txt
 ```
 
 O marketplace espelha a estrutura de `analizza-ai/analizza-marketplace`,
@@ -159,6 +163,11 @@ ausência do campo, assume-se `ambos`.
 
 Tabela `Módulo | Aula | Arquivo | Temas`, uma linha por transcript. É o
 que permite localizar o `.vtt` correto no estágio de aprofundamento.
+
+O material tem lacunas de numeração que o índice deve refletir como são,
+sem inventar aulas: o Módulo 1 não tem Aula 7; o Módulo 3 Aula 14 existe
+apenas como "Parte 3"; o Módulo 4 Aula 2 existe apenas como "parte2". O
+campo `Fonte` do catálogo só pode apontar para aulas presentes no índice.
 
 ### `SKILL.md`
 
@@ -255,11 +264,15 @@ provável a uma skill irmã no mesmo plugin.
 
 ## Critérios de aceite
 
+Os critérios 2 e 3 são verificados por `tools/validate_knowledge.py`,
+exposto como `make check`. Os invariantes de forma do catálogo são
+executáveis, não conferidos a olho.
+
 1. `make validate` passa nos manifestos do marketplace e do plugin.
 2. `riscos.md` tem entre 60 e 90 entradas, todas com os campos
    obrigatórios preenchidos e `Fonte` apontando para módulo e aula que
    existem em `indice-aulas.md`.
-3. `indice-aulas.md` tem uma linha para cada um dos 63 transcripts, e
+3. `indice-aulas.md` tem uma linha para cada uma das 62 transcrições, e
    todo `Arquivo` referenciado existe em `transcripts/`.
 4. Uma análise de teste sobre um edital real produz saída no formato
    especificado, com citação literal localizada e fonte de aula, e
