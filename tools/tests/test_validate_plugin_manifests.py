@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from tools.validate_plugin_manifests import validar_manifestos
@@ -57,3 +58,11 @@ def test_interface_incompleta_e_reportada(tmp_path: Path):
     assert "interface.category ausente" in "\n".join(
         validar_manifestos(claude, codex, tmp_path)
     )
+
+
+def test_manifestos_reais_respeitam_o_contrato():
+    raiz = Path(__file__).resolve().parents[2]
+    plugin_dir = raiz / "plugins/analizza-leiloes"
+    claude = json.loads((plugin_dir / ".claude-plugin/plugin.json").read_text())
+    codex = json.loads((plugin_dir / ".codex-plugin/plugin.json").read_text())
+    assert validar_manifestos(claude, codex, plugin_dir) == []
