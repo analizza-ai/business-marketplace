@@ -1,7 +1,7 @@
 {
   "name": "analizza-leiloes",
   "description": "Skills da Analizza para análise de risco em leilão de imóveis",
-  "version": "0.2.0",
+  "version": "0.1.1",
   "author": {
     "name": "Diego Lirio",
     "email": "diegolirio.dl@gmail.com"
