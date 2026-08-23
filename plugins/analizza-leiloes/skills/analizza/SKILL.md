@@ -1,6 +1,6 @@
 ---
 name: analizza
-description: Analisa material de leilão de imóveis — edital, matrícula, anúncio, laudo, print ou link — traz um resumo financeiro do lote (valor mínimo de arrematação, valor de mercado, ROI bruto, data do leilão, parcelamento/financiamento, tipo do leilão, IPTU e condomínio) e aponta os riscos e pontos de atenção, com o trecho literal que originou cada apontamento e a aula do curso que explica aquele risco. Fecha com veredito de triagem e lista o que o material não permite verificar. Use quando o usuário pedir "analisar leilão", "analisar edital", "analisar matrícula", "vale a pena arrematar", "roi do leilão", "riscos desse lote", "analisar esse imóvel de leilão", ou invocar /analizza.
+description: Analisa material de leilão de imóveis — edital, matrícula, anúncio, laudo, print ou link — e aponta os riscos e pontos de atenção, com o trecho literal que originou cada apontamento e a aula do curso que explica aquele risco. Fecha com veredito de triagem e lista o que o material não permite verificar. Use quando o usuário pedir "analisar leilão", "analisar edital", "analisar matrícula", "vale a pena arrematar", "riscos desse lote", "analisar esse imóvel de leilão", ou invocar /analizza.
 ---
 
 # Analizza · triagem de risco em leilão de imóveis
@@ -32,48 +32,50 @@ de analisar. **Esta é a única pergunta que você tem permissão de fazer.**
 Qualquer outra lacuna não vira pergunta: vira linha da seção "Não verificável".
 Você não é um questionário.
 
-## 3. Resumo financeiro do lote
+## 3. Ficha de extração
 
-Este passo é **obrigatório em toda análise**, sem exceção — o resultado vira
-o bloco `### 📋 Resumo do lote` que abre a saída (seção 6), antes de
-qualquer risco. Antes da varredura de riscos, extraia do material os 8
-campos abaixo. Mesma
-disciplina da citação: só entra o que está escrito no documento, nunca
-inferido, nunca de fonte externa. Campo ausente no material → **"Não
-informado"**. Nenhuma lacuna aqui vira pergunta — mesma regra da seção 2 — e
-também não vira linha da seção "Não verificável" da varredura de riscos: o
-próprio "Não informado" já é a saída para este bloco.
+Antes de varrer riscos, monte uma tabela markdown com os dados objetivos do
+lote. É extração, não análise: preencha só o que está literalmente no
+material, sem inferir, completar ou estimar.
 
-- **Valor mínimo de arrematação** — o valor mais baixo pelo qual o lote pode
-  ser arrematado: havendo 1ª e 2ª praça (judicial ou extrajudicial), é
-  sempre o **menor** dos dois valores anunciados — normalmente o da 2ª
-  praça —, independentemente de a 1ª praça já ter ocorrido ou não; em venda
-  direta ou leilão de praça única, é o valor ofertado do imóvel.
-- **Valor de mercado ou avaliado** — valor do laudo de avaliação ou campo
-  equivalente ("valor avaliado", "valor de avaliação").
-- **ROI bruto** — `(valor de mercado − valor mínimo de arrematação) / valor
-  mínimo de arrematação`, em % (uma casa decimal) e em R$. Rótulo sempre
-  "ROI bruto" com a nota fixa: *não considera ITBI, comissão do leiloeiro,
-  reforma nem impostos*. Se faltar o valor de mercado, o valor mínimo de
-  arrematação, ou os dois, o campo vira "não calculável — valor de mercado
-  não informado no material", "não calculável — valor mínimo de
-  arrematação não informado no material", ou "não calculável — nenhum dos
-  dois valores informado no material", conforme o caso.
-- **Data do leilão** — data e hora. Havendo 1ª e 2ª praça, liste as duas com
-  seus respectivos valores.
-- **Aceita parcelamento ou financiamento** — Sim/Não, como o documento
-  afirma literalmente. Se o documento trata os dois separadamente e as
-  respostas divergem, registre os dois: "Financiamento: Sim · Parcelamento:
-  Não" (ou o inverso).
-- **Tipo do leilão** — Judicial/Extrajudicial; reaproveita a classificação já
-  feita na seção 2, não repete a detecção. Venda direta (sem leilão formal,
-  ex.: venda direta Caixa) entra como Extrajudicial.
-- **IPTU mensal** — só entra com valor numérico fixo mensal. Regra genérica
-  sem número (ex.: "sob responsabilidade do comprador") não conta como
-  valor — vai como "Não informado". Valor anual, parcelado em cotas ou
-  débito acumulado também não é valor mensal: não converta, vai como "Não
-  informado".
-- **Condomínio mensal** — mesma regra do IPTU.
+Campos, nesta ordem:
+
+| Campo | Regra de preenchimento |
+| --- | --- |
+| Tipo de imóvel | tipo + descrição curta (quartos, vaga etc.) quando houver |
+| Endereço | cidade/UF no mínimo; endereço completo se disponível |
+| Área | m² útil, e total entre parênteses se ambos existirem |
+| Valor de avaliação | valor monetário ou `Não informado` |
+| Lance mínimo | valor da praça aplicável (2ª praça se já passou a 1ª) |
+| Lance 1ª praça | valor, se distinto do mínimo |
+| ROI Bruto = Avaliação ÷ Lance mínimo | calcule só se ambos os valores existirem no material; senão `Não calculável — avaliação não informada`. Isto é uma divisão simples entre dois números já presentes no documento, não uma estimativa — não conflita com a vedação a cálculo de viabilidade financeira do item 8 |
+| Data do leilão | 1ª e 2ª praça, com hora |
+| Tipo | judicial/extrajudicial + praça atual |
+| IPTU anual | valor ou `Não informado` |
+| Condomínio mensal | valor ou `Não informado` |
+| Leiloeiro | nome + CPF/CNPJ + registro na junta comercial, se constarem |
+| Site do leilão | link, se houver |
+| Edital | link para o arquivo, se houver |
+| Matrícula | link para o arquivo, se houver |
+| Forma de pagamento | à vista / financiamento / FGTS / parcelamento, conforme edital |
+| Comissão do leiloeiro | percentual ou valor |
+| Multa por desistência | percentual ou valor |
+
+Regras:
+
+- **Nunca escreva `R$ 0` ou deixe célula em branco para dado ausente.** Use
+  `Não informado` — zero é um valor, ausência de dado não é zero.
+  `Não informado` no `IPTU anual` ou `Condomínio mensal` já é, em si, sinal
+  para checar R-017/R-011 na varredura que vem a seguir.
+- **Links só quando existirem no material.** Formate como
+  `[texto](url)` — nunca invente ou complete uma URL. Sem link no material,
+  o campo fica com o nome do arquivo (ex.: `edital-0234.pdf`), sem link.
+- Campo que não se aplica ao tipo de documento (ex.: "Condomínio mensal" num
+  material que é só a matrícula, sem nenhum anúncio ou edital) recebe
+  `Não aplicável a este material`, não `Não informado` — a distinção entre
+  "documento não trouxe" e "esse documento nunca traria" é a mesma da seção 4.
+- Consolide os campos de todos os documentos da mesma invocação numa única
+  tabela, como a análise de riscos que vem depois.
 
 ## 4. Varredura em duas passadas
 
@@ -132,25 +134,29 @@ aula-fonte ensina é o pior erro possível aqui.
 
 ## 6. Saída
 
-Só no chat, sem arquivo. **O bloco `### 📋 Resumo do lote` é obrigatório em
-toda análise e é sempre o primeiro conteúdo depois do cabeçalho — antes de
-qualquer seção de risco, mesmo que os 8 campos venham todos como "Não
-informado".** Formato literal:
+Só no chat, sem arquivo. Formato literal:
 
 ````markdown
 ## Análise · Edital de leilão extrajudicial
 edital_lote_042.pdf · 14 páginas · alienação fiduciária
 
-### 📋 Resumo do lote
+### Ficha de extração
 
-- **Valor mínimo de arrematação:** R$ 117.256,22
-- **Valor de mercado ou avaliado:** R$ 194.000,00
-- **ROI bruto:** 65,4% · R$ 76.743,78 (não considera ITBI, comissão do leiloeiro, reforma nem impostos)
-- **Data do leilão:** 24/08/2026 às 18:00
-- **Aceita parcelamento ou financiamento:** Não
-- **Tipo do leilão:** Extrajudicial
-- **IPTU mensal:** Não informado
-- **Condomínio mensal:** Não informado
+| Campo | Valor |
+| --- | --- |
+| Tipo de imóvel | Apartamento, 2 quartos |
+| Endereço | São Paulo/SP |
+| Área | 78 m² |
+| Valor de avaliação | Não informado |
+| Lance mínimo | R$ 145.000,00 |
+| ROI Bruto = Avaliação ÷ Lance mínimo | Não calculável — avaliação não informada |
+| Data do leilão | 1ª praça 14/09/2026 · 2ª praça 18/09/2026 |
+| Tipo | Extrajudicial · 1ª praça |
+| IPTU anual | Não informado |
+| Condomínio mensal | Não informado |
+| Leiloeiro | Fulano de Tal · CPF 000.000.000-00 |
+| Edital | [Edital](https://exemplo.com/edital-0234.pdf) |
+| Matrícula | [Matrícula](https://exemplo.com/matricula-78421.pdf) |
 
 ### 🔴 CRÍTICO (1)
 
@@ -187,19 +193,6 @@ verificações essenciais dependem de documentos ainda não fornecidos.
 matrícula por advogado.*
 ````
 
-`### 📋 Resumo do lote` vem sempre primeiro, logo após o cabeçalho da
-análise, com as 8 linhas da seção 3 — nunca é omitido, mesmo se todas as
-linhas forem "Não informado". Sem citação literal aqui: é lista objetiva de
-campo/valor, diferente do padrão de citação exigido nas seções de risco
-abaixo dele.
-
-Havendo 1ª e 2ª praça, a linha de data mostra as duas e o valor mínimo usa a
-mais baixa das duas, por exemplo:
-
-- **Valor mínimo de arrematação:** R$ 145.424,42
-- **Data do leilão:** 1ª praça 14/09/2026 às 10:00 (R$ 270.101,69) · 2ª
-  praça 18/09/2026 às 10:00 (R$ 145.424,42)
-
 Seções de severidade nesta ordem, com a contagem entre parênteses:
 `🔴 CRÍTICO`, `🟠 ALTO`, `🟡 MÉDIO`, `🔵 BAIXO`, e por último
 `⚪ Não verificável com este documento`. Omita a seção que ficar vazia. O
@@ -232,10 +225,7 @@ A linha de rodapé sobre triagem é fixa e fecha toda análise, sem exceção.
 
 ## 8. Limites
 
-- Calcula apenas o ROI bruto entre valor mínimo de arrematação e valor de
-  mercado, quando os dois constam no material (seção 3) — não é lance
-  máximo nem viabilidade financeira completa (não inclui ITBI, comissão,
-  reforma ou impostos).
+- Não calcula lance máximo nem viabilidade financeira.
 - Não consulta cartório, processo, certidão ou qualquer fonte externa.
 - Não substitui a análise da matrícula por advogado.
 - Não gera arquivo: a entrega é a resposta no chat.
