@@ -29,7 +29,7 @@ install: ## Instala o plugin a partir do marketplace
 
 .PHONY: update
 update: ## Atualiza o marketplace e depois o plugin
-	claude plugin marketplace update $(MARKETPLACE) && claude plugin update $(PLUGIN)
+	claude plugin marketplace update $(MARKETPLACE) && claude plugin update $(PLUGIN)@$(MARKETPLACE)
 
 ##@ Release
 
