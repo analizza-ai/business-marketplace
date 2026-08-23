@@ -125,6 +125,17 @@ Só no chat, sem arquivo. Formato literal:
 ## Análise · Edital de leilão extrajudicial
 edital_lote_042.pdf · 14 páginas · alienação fiduciária
 
+### 📋 Resumo do lote
+
+- **Valor mínimo de arrematação:** R$ 117.256,22
+- **Valor de mercado ou avaliado:** R$ 194.000,00
+- **ROI bruto:** 65,4% · R$ 76.743,78 (não considera ITBI, comissão do leiloeiro, reforma nem impostos)
+- **Data do leilão:** 24/08/2026 às 18:00
+- **Aceita parcelamento ou financiamento:** Não
+- **Tipo do leilão:** Extrajudicial
+- **IPTU mensal:** Não informado
+- **Condomínio mensal:** Não informado
+
 ### 🔴 CRÍTICO (1)
 
 **R-012 · Desocupação por conta do arrematante, imóvel ocupado**
@@ -160,6 +171,12 @@ verificações essenciais dependem de documentos ainda não fornecidos.
 matrícula por advogado.*
 ````
 
+`### 📋 Resumo do lote` vem sempre primeiro, logo após o cabeçalho da
+análise, com as 8 linhas da seção 3 — nunca é omitido, mesmo se todas as
+linhas forem "Não informado". Sem citação literal aqui: é lista objetiva de
+campo/valor, diferente do padrão de citação exigido nas seções de risco
+abaixo dele.
+
 Seções de severidade nesta ordem, com a contagem entre parênteses:
 `🔴 CRÍTICO`, `🟠 ALTO`, `🟡 MÉDIO`, `🔵 BAIXO`, e por último
 `⚪ Não verificável com este documento`. Omita a seção que ficar vazia. O
@@ -192,7 +209,10 @@ A linha de rodapé sobre triagem é fixa e fecha toda análise, sem exceção.
 
 ## 8. Limites
 
-- Não calcula lance máximo nem viabilidade financeira.
+- Calcula apenas o ROI bruto entre valor mínimo de arrematação e valor de
+  mercado, quando os dois constam no material (seção 3) — não é lance
+  máximo nem viabilidade financeira completa (não inclui ITBI, comissão,
+  reforma ou impostos).
 - Não consulta cartório, processo, certidão ou qualquer fonte externa.
 - Não substitui a análise da matrícula por advogado.
 - Não gera arquivo: a entrega é a resposta no chat.
