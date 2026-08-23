@@ -32,7 +32,37 @@ de analisar. **Esta é a única pergunta que você tem permissão de fazer.**
 Qualquer outra lacuna não vira pergunta: vira linha da seção "Não verificável".
 Você não é um questionário.
 
-## 3. Varredura em duas passadas
+## 3. Resumo financeiro do lote
+
+Antes da varredura de riscos, extraia do material os 8 campos abaixo. Mesma
+disciplina da citação: só entra o que está escrito no documento, nunca
+inferido, nunca de fonte externa. Campo ausente no material → **"Não
+informado"**. Nenhuma lacuna aqui vira pergunta — mesma regra da seção 2.
+
+- **Valor mínimo de arrematação** — o valor mais baixo pelo qual o lote pode
+  ser arrematado na fase atual: em leilão judicial com 1ª e 2ª praça, é o
+  valor da praça vigente (a mais baixa, quando já em 2ª praça ou o material
+  indicar preço mínimo); em venda direta ou leilão de praça única, é o valor
+  ofertado do imóvel.
+- **Valor de mercado ou avaliado** — valor do laudo de avaliação ou campo
+  equivalente ("valor avaliado", "valor de avaliação").
+- **ROI bruto** — `(valor de mercado − valor mínimo de arrematação) / valor
+  mínimo de arrematação`, em % e em R$. Rótulo sempre "ROI bruto" com a nota
+  fixa: *não considera ITBI, comissão do leiloeiro, reforma nem impostos*.
+  Se faltar qualquer um dos dois valores de origem, o campo vira "não
+  calculável — [valor que falta] não informado no material".
+- **Data do leilão** — data e hora. Havendo 1ª e 2ª praça, liste as duas com
+  seus respectivos valores.
+- **Aceita parcelamento ou financiamento** — Sim/Não, como o documento
+  afirma literalmente.
+- **Tipo do leilão** — Judicial/Extrajudicial; reaproveita a classificação já
+  feita na seção 2, não repete a detecção.
+- **IPTU mensal (se tiver)** — só entra com valor numérico fixo mensal. Regra
+  genérica sem número (ex.: "sob responsabilidade do comprador") não conta
+  como valor — vai como "Não informado".
+- **Condomínio mensal (se tiver)** — mesma regra do IPTU.
+
+## 4. Varredura em duas passadas
 
 Leia `knowledge/riscos.md` **por inteiro** antes de decidir qualquer coisa, e
 percorra as 66 entradas filtradas pela modalidade.
@@ -68,7 +98,7 @@ porque o documento não a menciona — para as entradas de ausência, não menci
 é o próprio gatilho. Descartar exige trecho do documento que sustente o
 descarte; sem esse trecho, a saída é "não verificável".
 
-## 4. Aprofundamento e fundamentação
+## 5. Aprofundamento e fundamentação
 
 Para cada risco confirmado em `CRITICO` ou `ALTO`:
 
@@ -87,7 +117,7 @@ prazo ou tese que o catálogo e a aula não tragam. Catálogo raso num ponto ger
 saída rasa nesse ponto, e isso está certo. Afirmar o contrário do que a
 aula-fonte ensina é o pior erro possível aqui.
 
-## 5. Saída
+## 6. Saída
 
 Só no chat, sem arquivo. Formato literal:
 
@@ -146,7 +176,7 @@ cláusula** — num digitalizado sem numeração legível, referência inventada
 pior que nenhuma; use a região. Havendo vários documentos, o nome do documento
 entra na linha de localização.
 
-## 6. Veredito
+## 7. Veredito
 
 Um só, ao final, com justificativa de uma ou duas frases:
 
@@ -160,7 +190,7 @@ Um só, ao final, com justificativa de uma ou duas frases:
 
 A linha de rodapé sobre triagem é fixa e fecha toda análise, sem exceção.
 
-## 7. Limites
+## 8. Limites
 
 - Não calcula lance máximo nem viabilidade financeira.
 - Não consulta cartório, processo, certidão ou qualquer fonte externa.
