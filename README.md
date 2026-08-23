@@ -44,16 +44,27 @@ O `agy` reconhece este repositório como um diretório de plugins em lote (bulk 
 
 ## Publicando uma versão
 
-Suba a mesma `version` em `plugins/analizza-leiloes/.claude-plugin/plugin.json` e em `plugins/analizza-leiloes/.codex-plugin/plugin.json`, valide e crie a tag:
+`make tag` sobe a `version` nos dois manifestos (`.claude-plugin/plugin.json` e
+`.codex-plugin/plugin.json`), valida, commita e cria a tag
+`analizza-leiloes--v{version}`. Só roda a partir da branch `main`.
 
 ```bash
-claude plugin validate .
-claude plugin validate plugins/analizza-leiloes
-python3 tools/validate_plugin_manifests.py
-python3 -m pytest tools/tests -q
-python3 tools/validate_knowledge.py
-claude plugin tag plugins/analizza-leiloes   # cria a tag analizza-leiloes--v{version}
+make tag          # bump de patch (padrão): 0.1.1 -> 0.1.2
+make tag minor    # 0.1.1 -> 0.2.0
+make tag major    # 0.1.1 -> 1.0.0
 ```
+
+O comando cria o commit do bump e a tag localmente — publique com:
+
+```bash
+git push origin main
+git push origin refs/tags/analizza-leiloes--v{version}
+```
+
+Ou dispare pela aba **Actions** do GitHub o workflow **Release tag
+(analizza-leiloes)** (`workflow_dispatch`, escolhendo `patch`/`minor`/`major`),
+que roda `make tag` e publica o commit e a tag automaticamente. Só executa a
+partir da branch `main`.
 
 ## Estrutura
 

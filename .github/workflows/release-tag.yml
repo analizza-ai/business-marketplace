@@ -1,0 +1,54 @@
+name: Release tag (analizza-leiloes)
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: "Tipo de bump de versão"
+        required: true
+        default: patch
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Configurar identidade do git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Instalar Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Rodar make tag
+        run: make tag ${{ inputs.bump_type }}
+
+      - name: Publicar commit e tag
+        run: |
+          tag="$(git tag --points-at HEAD --list 'analizza-leiloes--v*')"
+          if [ -z "$tag" ]; then
+            echo "nenhuma tag analizza-leiloes--v* encontrada em HEAD" >&2
+            exit 1
+          fi
+          git push origin main
+          git push origin "refs/tags/$tag"

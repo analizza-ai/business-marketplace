@@ -37,9 +37,35 @@ update: ## Atualiza o marketplace e depois o plugin
 validate: ## Valida os manifestos do marketplace, Claude e Codex
 	claude plugin validate . && claude plugin validate $(PLUGIN_DIR) && python3 tools/validate_plugin_manifests.py
 
+ifneq (,$(filter tag,$(MAKECMDGOALS)))
+_TAG_EXTRA  := $(filter-out tag,$(MAKECMDGOALS))
+_TAG_INVALID := $(filter-out patch minor major,$(_TAG_EXTRA))
+ifneq ($(_TAG_INVALID),)
+$(error argumento inválido para 'make tag': '$(_TAG_INVALID)' — use patch, minor ou major)
+endif
+ifneq ($(word 2,$(_TAG_EXTRA)),)
+$(error passe no máximo um tipo de bump para 'make tag' — recebido: $(_TAG_EXTRA))
+endif
+BUMP := $(if $(_TAG_EXTRA),$(_TAG_EXTRA),patch)
+endif
+
 .PHONY: tag
-tag: validate ## Cria a tag {plugin}--v{version} validando os manifestos
+tag: ## Sobe a versão (patch por padrão; make tag minor|major) e cria a tag {plugin}--v{version}
+	@set -e; \
+	branch="$$(git rev-parse --abbrev-ref HEAD)"; \
+	if [ "$$branch" != "main" ]; then \
+		echo "make tag só roda na branch main (branch atual: $$branch)" >&2; \
+		exit 1; \
+	fi; \
+	nova="$$(python3 tools/bump_version.py $(BUMP))"; \
+	echo "Nova versão ($(BUMP)): $$nova"; \
+	$(MAKE) validate; \
+	git add $(PLUGIN_DIR)/.claude-plugin/plugin.json $(PLUGIN_DIR)/.codex-plugin/plugin.json; \
+	git commit -m "chore($(PLUGIN)): bump version to $$nova ($(BUMP))"; \
 	claude plugin tag $(PLUGIN_DIR)
+
+.PHONY: patch minor major
+patch minor major: ;
 
 ##@ Qualidade
 
