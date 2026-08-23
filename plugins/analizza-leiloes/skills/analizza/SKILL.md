@@ -40,10 +40,10 @@ inferido, nunca de fonte externa. Campo ausente no material → **"Não
 informado"**. Nenhuma lacuna aqui vira pergunta — mesma regra da seção 2.
 
 - **Valor mínimo de arrematação** — o valor mais baixo pelo qual o lote pode
-  ser arrematado na fase atual: em leilão judicial com 1ª e 2ª praça, é o
-  valor da praça vigente (a mais baixa, quando já em 2ª praça ou o material
-  indicar preço mínimo); em venda direta ou leilão de praça única, é o valor
-  ofertado do imóvel.
+  ser arrematado na fase atual: havendo 1ª e 2ª praça (judicial ou
+  extrajudicial), é o valor da praça vigente (a mais baixa, quando já em 2ª
+  praça ou o material indicar preço mínimo); em venda direta ou leilão de
+  praça única, é o valor ofertado do imóvel.
 - **Valor de mercado ou avaliado** — valor do laudo de avaliação ou campo
   equivalente ("valor avaliado", "valor de avaliação").
 - **ROI bruto** — `(valor de mercado − valor mínimo de arrematação) / valor
