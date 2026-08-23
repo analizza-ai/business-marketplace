@@ -34,7 +34,10 @@ Você não é um questionário.
 
 ## 3. Resumo financeiro do lote
 
-Antes da varredura de riscos, extraia do material os 8 campos abaixo. Mesma
+Este passo é **obrigatório em toda análise**, sem exceção — o resultado vira
+o bloco `### 📋 Resumo do lote` que abre a saída (seção 6), antes de
+qualquer risco. Antes da varredura de riscos, extraia do material os 8
+campos abaixo. Mesma
 disciplina da citação: só entra o que está escrito no documento, nunca
 inferido, nunca de fonte externa. Campo ausente no material → **"Não
 informado"**. Nenhuma lacuna aqui vira pergunta — mesma regra da seção 2 — e
@@ -129,7 +132,10 @@ aula-fonte ensina é o pior erro possível aqui.
 
 ## 6. Saída
 
-Só no chat, sem arquivo. Formato literal:
+Só no chat, sem arquivo. **O bloco `### 📋 Resumo do lote` é obrigatório em
+toda análise e é sempre o primeiro conteúdo depois do cabeçalho — antes de
+qualquer seção de risco, mesmo que os 8 campos venham todos como "Não
+informado".** Formato literal:
 
 ````markdown
 ## Análise · Edital de leilão extrajudicial
