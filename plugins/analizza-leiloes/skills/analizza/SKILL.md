@@ -1,6 +1,6 @@
 ---
 name: analizza
-description: Analisa material de leilão de imóveis — edital, matrícula, anúncio, laudo, print ou link — e aponta os riscos e pontos de atenção, com o trecho literal que originou cada apontamento e a aula do curso que explica aquele risco. Fecha com veredito de triagem e lista o que o material não permite verificar. Use quando o usuário pedir "analisar leilão", "analisar edital", "analisar matrícula", "vale a pena arrematar", "riscos desse lote", "analisar esse imóvel de leilão", ou invocar /analizza.
+description: Analisa material de leilão de imóveis — edital, matrícula, anúncio, laudo, print ou link — traz um resumo financeiro do lote (valor mínimo de arrematação, valor de mercado, ROI bruto, data do leilão, parcelamento/financiamento, tipo do leilão, IPTU e condomínio) e aponta os riscos e pontos de atenção, com o trecho literal que originou cada apontamento e a aula do curso que explica aquele risco. Fecha com veredito de triagem e lista o que o material não permite verificar. Use quando o usuário pedir "analisar leilão", "analisar edital", "analisar matrícula", "vale a pena arrematar", "roi do leilão", "riscos desse lote", "analisar esse imóvel de leilão", ou invocar /analizza.
 ---
 
 # Analizza · triagem de risco em leilão de imóveis
@@ -37,30 +37,40 @@ Você não é um questionário.
 Antes da varredura de riscos, extraia do material os 8 campos abaixo. Mesma
 disciplina da citação: só entra o que está escrito no documento, nunca
 inferido, nunca de fonte externa. Campo ausente no material → **"Não
-informado"**. Nenhuma lacuna aqui vira pergunta — mesma regra da seção 2.
+informado"**. Nenhuma lacuna aqui vira pergunta — mesma regra da seção 2 — e
+também não vira linha da seção "Não verificável" da varredura de riscos: o
+próprio "Não informado" já é a saída para este bloco.
 
 - **Valor mínimo de arrematação** — o valor mais baixo pelo qual o lote pode
-  ser arrematado na fase atual: havendo 1ª e 2ª praça (judicial ou
-  extrajudicial), é o valor da praça vigente (a mais baixa, quando já em 2ª
-  praça ou o material indicar preço mínimo); em venda direta ou leilão de
-  praça única, é o valor ofertado do imóvel.
+  ser arrematado: havendo 1ª e 2ª praça (judicial ou extrajudicial), é
+  sempre o **menor** dos dois valores anunciados — normalmente o da 2ª
+  praça —, independentemente de a 1ª praça já ter ocorrido ou não; em venda
+  direta ou leilão de praça única, é o valor ofertado do imóvel.
 - **Valor de mercado ou avaliado** — valor do laudo de avaliação ou campo
   equivalente ("valor avaliado", "valor de avaliação").
 - **ROI bruto** — `(valor de mercado − valor mínimo de arrematação) / valor
-  mínimo de arrematação`, em % e em R$. Rótulo sempre "ROI bruto" com a nota
-  fixa: *não considera ITBI, comissão do leiloeiro, reforma nem impostos*.
-  Se faltar qualquer um dos dois valores de origem, o campo vira "não
-  calculável — [valor que falta] não informado no material".
+  mínimo de arrematação`, em % (uma casa decimal) e em R$. Rótulo sempre
+  "ROI bruto" com a nota fixa: *não considera ITBI, comissão do leiloeiro,
+  reforma nem impostos*. Se faltar o valor de mercado, o valor mínimo de
+  arrematação, ou os dois, o campo vira "não calculável — valor de mercado
+  não informado no material", "não calculável — valor mínimo de
+  arrematação não informado no material", ou "não calculável — nenhum dos
+  dois valores informado no material", conforme o caso.
 - **Data do leilão** — data e hora. Havendo 1ª e 2ª praça, liste as duas com
   seus respectivos valores.
 - **Aceita parcelamento ou financiamento** — Sim/Não, como o documento
-  afirma literalmente.
+  afirma literalmente. Se o documento trata os dois separadamente e as
+  respostas divergem, registre os dois: "Financiamento: Sim · Parcelamento:
+  Não" (ou o inverso).
 - **Tipo do leilão** — Judicial/Extrajudicial; reaproveita a classificação já
-  feita na seção 2, não repete a detecção.
-- **IPTU mensal (se tiver)** — só entra com valor numérico fixo mensal. Regra
-  genérica sem número (ex.: "sob responsabilidade do comprador") não conta
-  como valor — vai como "Não informado".
-- **Condomínio mensal (se tiver)** — mesma regra do IPTU.
+  feita na seção 2, não repete a detecção. Venda direta (sem leilão formal,
+  ex.: venda direta Caixa) entra como Extrajudicial.
+- **IPTU mensal** — só entra com valor numérico fixo mensal. Regra genérica
+  sem número (ex.: "sob responsabilidade do comprador") não conta como
+  valor — vai como "Não informado". Valor anual, parcelado em cotas ou
+  débito acumulado também não é valor mensal: não converta, vai como "Não
+  informado".
+- **Condomínio mensal** — mesma regra do IPTU.
 
 ## 4. Varredura em duas passadas
 
@@ -176,6 +186,13 @@ análise, com as 8 linhas da seção 3 — nunca é omitido, mesmo se todas as
 linhas forem "Não informado". Sem citação literal aqui: é lista objetiva de
 campo/valor, diferente do padrão de citação exigido nas seções de risco
 abaixo dele.
+
+Havendo 1ª e 2ª praça, a linha de data mostra as duas e o valor mínimo usa a
+mais baixa das duas, por exemplo:
+
+- **Valor mínimo de arrematação:** R$ 145.424,42
+- **Data do leilão:** 1ª praça 14/09/2026 às 10:00 (R$ 270.101,69) · 2ª
+  praça 18/09/2026 às 10:00 (R$ 145.424,42)
 
 Seções de severidade nesta ordem, com a contagem entre parênteses:
 `🔴 CRÍTICO`, `🟠 ALTO`, `🟡 MÉDIO`, `🔵 BAIXO`, e por último
