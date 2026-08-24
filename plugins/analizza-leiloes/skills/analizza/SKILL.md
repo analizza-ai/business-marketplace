@@ -140,6 +140,16 @@ Só no chat, sem arquivo. Formato literal:
 ## Análise · Edital de leilão extrajudicial
 edital_lote_042.pdf · 14 páginas · alienação fiduciária
 
+### Veredito: ⚠️ CUIDADO
+
+Nada impeditivo, mas o custo de desocupação não está precificado e três
+verificações essenciais dependem de documentos ainda não fornecidos.
+
+*Triagem baseada no material fornecido. Não substitui a análise da
+matrícula por advogado.*
+
+---
+
 ### Ficha de extração
 
 | Campo | Valor |
@@ -182,15 +192,6 @@ O catálogo exige checar, mas este documento não permite:
 
 - **R-021** Penhoras anteriores à consolidação → peça a matrícula atualizada
 - **R-047** Débito condominial acumulado → peça declaração do condomínio
-
----
-### Veredito: ⚠️ CUIDADO
-
-Nada impeditivo, mas o custo de desocupação não está precificado e três
-verificações essenciais dependem de documentos ainda não fornecidos.
-
-*Triagem baseada no material fornecido. Não substitui a análise da
-matrícula por advogado.*
 ````
 
 Seções de severidade nesta ordem, com a contagem entre parênteses:
