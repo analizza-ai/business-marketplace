@@ -28,6 +28,13 @@ O Codex não tem um comando de instalação de plugin via CLI. Abra o app Codex,
 
 Para desenvolvimento local, o plugin mantém o manifesto `plugins/analizza-leiloes/.codex-plugin/plugin.json` na mesma pasta do plugin; use o fluxo de instalação local que o app Codex suporta para plugins nesse formato.
 
+### GitHub Copilot CLI
+
+```bash
+claude plugin marketplace add analizza-ai/business-marketplace
+claude plugin install analizza-leiloes@business-marketplace
+```
+
 ### Antigravity
 
 ```bash
